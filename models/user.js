@@ -15,14 +15,18 @@ const userSchema = new Schema(
       unique: true,
       match: true,
     },
-    thoughts: {
-      type: Date,
-  
+    thoughts: [{
+      type: Schema.Types.ObjectId,
+      ref: "Thought"
+
     },
-    friends: {
-      type: Date,
-    
+    ],
+    friends: [{
+      type: Schema.Types.ObjectId,
+      ref: "User"
+
     },
+    ],
   },
   {
     toJSON: {
@@ -32,6 +36,6 @@ const userSchema = new Schema(
   }
 );
 
-const user = model('user', userSchema);
+const User = model('User', userSchema);
 
-module.exports = user
+module.exports = User

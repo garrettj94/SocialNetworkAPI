@@ -1,45 +1,25 @@
-// ObjectId() method for converting studentId string into an ObjectId for querying database
-const { ObjectId } = require('mongoose').Types;
-const { thought, User } = require('../models');
+//change object to captial
+const { thought, user } = require('../models');
 
 
 module.exports = {
   // Get all thoughts
   getThoughts(req, res) {
     thought.find()
-      .then(async (thought) => {
-        const thoughtObj = {
-          thoughttext,
-          createdAt: await headCount(),
-          username,
-          reactions,
-        };
-        return res.json(thoughtObj);
-      })
-      .catch((err) => {
-        console.log(err);
-        return res.status(500).json(err);
-      });
+      .then((thought) => res.json(thought)
+      )
+      .catch((err) => res.status(500).json(err));
   },
   // Get a single thought
   getSingleThought(req, res) {
     thought.findOne({ _id: req.params.thoughtId })
       .select('-__v')
-      .lean()
-      .then(async (thought) =>
+      .then((thought) =>
         !thought
           ? res.status(404).json({ message: 'No thought with that ID' })
-          : res.json({
-            thoughttext,
-            createdAt: await headCount(),
-            username,
-            reactions,
-            })
+          : res.json(thought)
       )
-      .catch((err) => {
-        console.log(err);
-        return res.status(500).json(err);
-      });
+      .catch((err) => res.status(500).json(err));
   },
   // create a new Thought
   createThought(req, res) {
@@ -49,22 +29,11 @@ module.exports = {
   },
   // Delete a thought and remove them from the user
   deleteThought(req, res) {
-    thought.findOneAndRemove({ _id: req.params.ThoughtId })
+    thought.findOneAndRemove({ _id: req.params.thoughtId })
       .then((thought) =>
         !thought
           ? res.status(404).json({ message: 'No such Thought exists' })
-          : user.findOneAndUpdate(
-              { thought: req.params.thoughtId },
-              { $pull: { thought: req.params.thoughtId } },
-              { new: true }
-            )
-      )
-      .then((user) =>
-        !user
-          ? res.status(404).json({
-              message: 'Thought deleted, but no user found',
-            })
-          : res.json({ message: 'Thought successfully deleted' })
+          :  res.status(200).json({ message: 'Thought delted' })
       )
       .catch((err) => {
         console.log(err);
