@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
-const reactionSchema = require('./Reactions');
+const reactionSchema = require('./Reaction');
 
-// Schema to create Student model
+// Schema to create Thought model
 const thoughtSchema = new Schema(
   {
     thoughtText: {
@@ -27,6 +27,6 @@ const thoughtSchema = new Schema(
   }
 );
 
-const thought = model('thought', thoughtSchema);
+const Thought = model('Thought', thoughtSchema);
 
-module.exports = thought;
+module.exports = Thought;

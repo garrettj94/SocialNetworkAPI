@@ -8,16 +8,15 @@ const {
   removeReaction,
 } = require('../../controllers/thoughtController');
 
-// /api/students
+
 router.route('/').get(getThoughts).post(createThought);
 
-// /api/students/:studentId
 router.route('/:thoughtId').get(getSingleThought).delete(deleteThought);
 
-// /api/students/:studentId/assignments
+
 router.route('/:thoughtId/reaction').post(addReaction);
 
-// /api/students/:studentId/assignments/:assignmentId
+
 router.route('/:thougthId/reaction/:reactionId').delete(removeReaction);
 
 module.exports = router;
