@@ -21,6 +21,7 @@ router.route('/:userId/friends/:friendsId').delete(removeFriend);
 
 router
   .route('/:userId')
+  .get(getUsers)
   .get(getSingleUser)
   .put(updateUser)
   .delete(deleteUser)

@@ -4,7 +4,7 @@ module.exports = {
   // Get all Users
   getUsers(req, res) {
     User.find()
-      .then((Users) => res.json(Users))
+      .then((users) => res.json(users))
       .catch((err) => res.status(500).json(err));
   },
   // Get a Users
@@ -14,11 +14,11 @@ module.exports = {
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No Users with that ID' })
-          : res.json(Users)
+          : res.json(user)
       )
       .catch((err) => res.status(500).json(err));
   },
-  // Create a Users
+  // Create a User
   createUser(req, res) {
     User.create(req.body)
       .then((user) => res.json(user))
@@ -27,18 +27,18 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
-  // Delete a Users
+  // Delete a User
   deleteUser(req, res) {
     User.findOneAndDelete({ _id: req.params.userId })
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No Users with that ID' })
-          : Student.deleteMany({ _id: { $in: user.students } })
+          : User.deleteMany({ _id: { $in: user._id } })
       )
-      .then(() => res.json({ message: 'User and students deleted!' }))
+      .then(() => res.json({ message: 'User  deleted!' }))
       .catch((err) => res.status(500).json(err));
   },
-  // Update a Users
+  // Update a User
   updateUser(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -70,7 +70,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // Remove reaction from a thought 
+  
   removeFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
